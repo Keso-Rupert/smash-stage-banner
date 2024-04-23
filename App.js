@@ -1,55 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Stage from './components/Stage';
+import StagesGrid from './components/StagesGrid';
+import { useState } from 'react';
 
 export default function App() {
 
-  var stages = [
-    {
-      name: "Battlefield",
-      image: require("./assets/images/Battlefield.jpg")
-    },
-    {
-      name: "Final Destination",
-      image: require("./assets/images/Final_Destination.jpg")
-    },
-    {
-      name: "Hollow Bastion",
-      image: require("./assets/images/Hollow_Bastion.jpg")
-    }, 
-    {
-      name: "Kalos Pokemon League",
-      image: require("./assets/images/Kalos_Pokemon_League.jpg")
-    },
-    {
-      name: "Pokemon Stadium 2",
-      image: require("./assets/images/Pokemon_Stadium_2.jpg")
-    },
-    {
-      name: "Small Battlefield",
-      image: require("./assets/images/Small_Battlefield.jpg")
-    },
-    {
-      name: "Smashville",
-      image: require("./assets/images/Smashville.jpg")
-    },
-    {
-      name: "Town and City",
-      image: require("./assets/images/Town_and_city.jpg")
-    },
-    {
-      name: "Yoshi's Story",
-      image: require("./assets/images/Yoshis_Story.jpg")
-    }
-  ];
+  [player, setPlayer] = useState("Winner");
+  [amountOfStages, setAmountOfStages] = useState(0);
+  [bannedStages, setBannedStages] = useState([]);
 
+  const banStage = (stageName) => {
+    setBannedStages((prevBannedStages) =>
+      prevBannedStages.includes(stageName)
+        ? prevBannedStages.filter((stage) => stage !== stageName)
+        : [...prevBannedStages, stageName]
+    );
+  };
 
+  console.log(bannedStages);
 
   return (
     <View style={styles.container}>
-      {stages.map(stage => (
-        <Stage key={stage.name} imageSource={stage.image} isBanned={false}/>
-      ))}
+      <StagesGrid bannedStages={bannedStages} banStage={banStage}/>
+      <Text style={styles.banText}> <Text style={styles.playerText}>{player}</Text> has to ban <Text style={styles.amountText}>{amountOfStages}</Text> stages.</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -59,10 +33,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#25292e',
-    flexDirection: 'row', // Arrange items horizontally
-    flexWrap: 'wrap', // Allow items to wrap to the next line if needed
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10, // Add some padding around the stages
   },
+  banText: {
+    color: "white",
+    fontSize: 24,
+    textAlign: "center",
+  },
+  playerText: {
+    color: "#a832a6",
+    fontSize: 32,
+  },
+  amountText: {
+    color: "#329ea8",
+    fontSize: 32,
+  }
 });
