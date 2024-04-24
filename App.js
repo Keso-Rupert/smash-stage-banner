@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Stage from './components/Stage';
 import StagesGrid from './components/StagesGrid';
 import { useState } from 'react';
 
@@ -18,12 +17,12 @@ export default function App() {
     );
   };
 
-  console.log(bannedStages);
-
   return (
     <View style={styles.container}>
-      <StagesGrid bannedStages={bannedStages} banStage={banStage}/>
-      <Text style={styles.banText}> <Text style={styles.playerText}>{player}</Text> has to ban <Text style={styles.amountText}>{amountOfStages}</Text> stages.</Text>
+      <StagesGrid bannedStages={bannedStages} onBanStage={banStage} />
+      <Text style={styles.banText}>
+        <Text style={styles.playerText}>{player}</Text> has to ban <Text style={styles.amountText}>{amountOfStages}</Text> stages.
+      </Text>
       <StatusBar style="auto" />
     </View>
   );

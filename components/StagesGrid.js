@@ -3,7 +3,7 @@ import Stage from "./Stage";
 import { useState } from "react";
 
 
-export default function StagesGrid( bannedStages, banStage ) {
+export default function StagesGrid({ bannedStages, onBanStage }) {
   var stages = [
     {
       name: "Battlefield",
@@ -47,7 +47,11 @@ export default function StagesGrid( bannedStages, banStage ) {
   return (
     <View style={styles.stageGridContainer}>
       {stages.map(stage => (
-        <Stage key={stage.name} imageSource={stage.image} isBanned={bannedStages && Array.isArray(bannedStages) && bannedStages.includes(stageName)} onPress={() => banStage(stage.name)}/>
+        <Stage 
+        key={stage.name} 
+        imageSource={stage.image} 
+        isBanned={bannedStages.includes(stage.name)} 
+        onPress={() => onBanStage(stage.name)}/>
       ))}
     </View>
   );
