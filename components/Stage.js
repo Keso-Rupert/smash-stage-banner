@@ -7,7 +7,7 @@ const STAGES_PER_ROW = 2
 const PADDING_PER_STAGE = 5
 const ASPECT_RATIO = 16 / 9
 
-export default function Stage({ imageSource, isBanned, onPress }) {
+export default function Stage({ imageSource, isBanned, isPicked, onPress }) {
     const { width } = useWindowDimensions();
     const stageWidth = width / STAGES_PER_ROW - (STAGES_PER_ROW * PADDING_PER_STAGE); // Subtracting padding
     const stageHeight = stageWidth / ASPECT_RATIO; // Calculate stageheight while taking 16:9 into account
@@ -20,6 +20,16 @@ export default function Stage({ imageSource, isBanned, onPress }) {
                         name="x"
                         size={70}
                         color="#eb4034"
+                        style={styles.buttonIcon}
+                    />
+                ) : (
+                    <View />
+                )}
+                {isPicked ? (
+                    <Feather
+                        name="check"
+                        size={70}
+                        color="#34eb40"
                         style={styles.buttonIcon}
                     />
                 ) : (
