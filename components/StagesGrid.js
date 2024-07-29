@@ -59,7 +59,6 @@ export default function StagesGrid({ bannedStages, onBanStage }) {
 
 const styles = StyleSheet.create({
   stageGridContainer: {
-    flex: 1/2,
     flexDirection: 'row', // Arrange items horizontally
     flexWrap: 'wrap', // Allow items to wrap to the next line if needed
     alignItems: 'center',
