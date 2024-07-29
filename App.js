@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Switch, Text, View } from 'react-native';
+import { StyleSheet, Switch, Text, View, TouchableOpacity } from 'react-native';
 import StagesGrid from './components/StagesGrid';
 import { useState } from 'react';
 
@@ -73,6 +73,7 @@ export default function App() {
       const newIsFirstGame = !previousIsFirstGame;
       setAmountOfStages(newIsFirstGame ? FIRST_GAME_WINNER_BANS : NON_FIRST_GAME_WINNER_BANS);
       // Reset when toggling the switch
+
       resetStageSelection();
       return newIsFirstGame;
     });
@@ -83,6 +84,12 @@ export default function App() {
     setPickedStage(null);
     setPlayer("Winner");
     setGamePhase("winnerBanning");
+  }
+
+  const resetEverything = () => {
+    setFirstGame(true);
+    setAmountOfStages(FIRST_GAME_WINNER_BANS);
+    resetStageSelection();
   }
 
   const getActionText = () => {
@@ -102,16 +109,25 @@ export default function App() {
         pickedStage={pickedStage}
         onStageAction={handleStageAction} 
       />
+      <Text style={styles.instructionText}>
+        Start by playing Rock-Paper-Scissors.
+      </Text>
       <Text style={styles.banText}>
         <Text style={styles.playerText}>{player}</Text> has to {getActionText()} stage{amountOfStages !== 1 ? 's' : ''}.
       </Text>
-      <Switch
-        trackColor={{false: '#767577', true: '#81b0ff'}}
-        thumbColor={isFirstGame ? '#f5dd4b' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleFirstGameSwitch}
-        value={isFirstGame}
-      />
+      <View style={styles.switchContainer} >
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isFirstGame ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleFirstGameSwitch}
+          value={isFirstGame}
+        />
+        <Text style={styles.switchText}>This is the first game we're playing</Text>
+      </View>
+      <TouchableOpacity style={styles.resetButton} onPress={resetEverything}>
+        <Text style={styles.resetButtonText}>Reset</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
@@ -121,11 +137,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  instructionText: {
+    color: "#a0a0a0",
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 8,
   },
   banText: {
     color: "white",
     fontSize: 24,
     textAlign: "center",
+    marginBottom: 20,
   },
   playerText: {
     color: "#a832a6",
@@ -134,5 +158,26 @@ const styles = StyleSheet.create({
   amountText: {
     color: "#329ea8",
     fontSize: 32,
-  }
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  switchText: {
+    color: "white",
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  resetButton: {
+    backgroundColor: '#4a4a4a',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  resetButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
