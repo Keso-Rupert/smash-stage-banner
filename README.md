@@ -1,4 +1,5 @@
 # Smash Bros Stage Selector
+[![Vercel Deploy](https://deploy-badge.vercel.app/vercel/smash-stage-banner)](https://smash-stage-banner.vercel.app)
 
 ## Description
 This React Native application is designed for Super Smash Bros. players to manage stage selection during competitive play. It allows players to ban and pick stages according to tournament rules, with different modes for first games and subsequent games in a set.
